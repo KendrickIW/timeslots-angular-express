@@ -1,0 +1,56 @@
+<div class="row" ng-app="timeSlotsApp">
+  <div class="col s12" ng-controller='TimeSlotsListController as timeSlotList'>
+    <table class="bordered highlight">
+      <thead>
+        <tr>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+        ng-repeat="timeslot in timeSlotList.timeslots"
+        ng-click="timeSlotList.openModal(timeslot)"
+        ng-class="{red: timeslot.name && timeslot.phone}">
+          <td ng-bind="timeslot.start"></td>
+          <td ng-bind="timeslot.end"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="edit-timeslot-modal" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <h5><span ng-bind="timeSlotList.editSlot.start"></span> - <span ng-bind="timeSlotList.editSlot.end"></span></h5>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id='timeslot-name' type="text" placeholder="Enter name" ng-model="timeSlotList.form.name">
+            <label for="timeslot-name">Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id='timeslot-phone' type="tel" placeholder="Enter phone number" class='validate' ng-model="timeSlotList.form.phone">
+            <label for="timeslot-phone">Phone Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!"
+        class="btn modal-action modal-close waves-effect waves-green"
+        ng-click="timeSlotList.updateTimeSlot()"
+        ng-disabled="!timeSlotList.form.name && !timeSlotList.form.phone">Submit</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  $('.modal').modal({
+    dismissible: true
+  });
+});
+</script>
